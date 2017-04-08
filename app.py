@@ -6,8 +6,8 @@ import json
 
 app = Flask(__name__)
 # Try adding your own number to this list!
-account_sid = "ACa9eca256e7d2b82539a0c6086dc244d7"
-auth_token = "213a8dd83633246a86c5b36361665220"
+account_sid = "ACe7c0012d06fc3b85303d8387dffdf672"
+auth_token = "a3d0ce1a83f3d9ac352c26a95c46f96e"
 client = TwilioRestClient(account_sid, auth_token)
 
 
