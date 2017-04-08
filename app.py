@@ -17,7 +17,7 @@ def sms_reply():
     resp = MessagingResponse()
 
     # Add a message
-    resp.message("The Robots are coming! Head for the hills!")
+    resp.message("Avi is boosted")
 
     return str(resp)
 
