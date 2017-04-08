@@ -11,7 +11,7 @@ auth_token = "a3d0ce1a83f3d9ac352c26a95c46f96e"
 client = Client(account_sid, auth_token)
 
 @app.route("/", methods=['GET', 'POST'])
-def hello_monkey():
+def index():
 
     print("NIKHIL U BOOSTED APE")
 
