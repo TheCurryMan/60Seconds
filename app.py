@@ -13,7 +13,7 @@ client = Client(account_sid, auth_token)
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
     call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="http://demo.twilio.com/docs/voice.xml",record=True)
-    print(call.uri)
+    return call.uri
 
 if __name__ == "__main__":
     app.run(debug=True)
