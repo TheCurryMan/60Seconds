@@ -13,7 +13,9 @@ client = TwilioRestClient(account_sid, auth_token)
 
 
 @app.route("/", methods=['GET', 'POST'])
-def hello_monkey():
+def index():
+
+    print("NIKHIL U BOOSTED APE")
 
     #Getting actual message from user
     body = request.values.get('Body', None)
