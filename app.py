@@ -16,9 +16,7 @@ def sms_reply():
     """Respond to incoming calls with a simple text message."""
 
     from_number = request.values.get('From', None)
-    call = client.calls.create(from_number, "+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback?num="+from_number)
-
-
+    call = client.calls.create(from_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback?num="+from_number)
     return "Hello nikhil u boosted ape"
 
 @app.route("/callback", methods=['GET', 'POST'])
@@ -34,7 +32,7 @@ def callback():
     finalTwilioURL = "api.twilio.com" + rec2.uri[:-4] + "mp3"
     print(finalTwilioURL)
     date = datetime.datetime.now().strftime ("%m-%d-%Y")
-    t = str(runSentimentAnalysis(finalTwilioURL))
+    t = str(runSentimentAnalysis(rec2.Sid))
     if num in data:
         data[num][date] = finalTwilioURL
         data[num]["sent"] = t
