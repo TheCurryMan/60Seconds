@@ -2,7 +2,7 @@ from flask import Flask, request, redirect, send_from_directory
 from twilio.rest import Client
 from firebase import firebase
 import datetime
-from sentanalysis import runSentimentAnalysis 
+from textblob import TextBlob
 
 
 app = Flask(__name__, static_folder='static')
@@ -32,18 +32,31 @@ def callback():
     finalTwilioURL = "api.twilio.com" + rec2.uri[:-4] + "mp3"
     print(finalTwilioURL)
     date = datetime.datetime.now().strftime ("%m-%d-%Y")
-    t = str(runSentimentAnalysis(rec2.sid))
     if num in data:
         data[num][date] = finalTwilioURL
-        data[num]["sent"] = t
+      
     else:
-        data[num] = {date:finalTwilioURL, "sent":t}
+        data[num] = {date:finalTwilioURL}
 
     result = fb.put('', '/users', data)
 
     return "callback func boiz"
 
+@app.route("/transcribecallback", methods=['GET','POST'])
+def transcribecallback():
+    fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
+    data = fb.get('/users', None)
+    text = request.values.get("TranscriptionText")
+    date = datetime.datetime.now().strftime ("%m-%d-%Y")
+    sent = TextBlob(text).sentiment.polarity
+    if num in data:
+        data[num][date]["sent"] = sent
+    else:
+        data[num][date] = {"sent":sent}
+    
+    result = fb.put('', '/users', data)
 
+    return "transcribe callback boiz"
 
 @app.route("/call.xml", methods=['GET', 'POST'])
 def static_from_root():
