@@ -9,7 +9,6 @@ app = Flask(__name__, static_folder='static')
 account_sid = "ACe7c0012d06fc3b85303d8387dffdf672"
 auth_token = "a3d0ce1a83f3d9ac352c26a95c46f96e"
 client = Client(account_sid, auth_token)
-fromNumber = ""
 
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
@@ -18,7 +17,7 @@ def sms_reply():
     from_number = request.values.get('From', None)
     fromNumber = from_number
 
-    call = client.calls.create(from_number, "+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback", record=True)
+    call = client.calls.create(from_number, "+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback?num="+from_number, record=True)
 
 
     return "Hello nikhil u boosted ape"
@@ -37,7 +36,7 @@ def callback():
 
 
     date = datetime.datetime.now().strftime ("%m-%d-%Y")
-    data[fromNumber][date] = finalTwilioURL
+    data[request.values.get("num")][date] = finalTwilioURL
 
     result = fb.put('', '/users', data)
 
