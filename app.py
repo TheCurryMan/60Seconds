@@ -54,10 +54,10 @@ def transcribecallback():
     num = str(request.values.get("To"))
     print(num)
     if num in data:
-        data[num][date]["sent"] = sent
-        data[num][date]["url"] = finalTwilioURL
+        data[str(num)][str(date)]["sent"] = str(sent)
+        data[str(num)][str(date)]["url"] = str(finalTwilioURL)
     else:
-        data[num][date] = {"sent":sent, "url": finalTwilioURL}
+        data[str(num)][str(date)] = {"sent":str(sent), "url": str(finalTwilioURL)}
 
     result = fb.put('', '/users', data)
 
