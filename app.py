@@ -16,36 +16,37 @@ def sms_reply():
     """Respond to incoming calls with a simple text message."""
 
     to_number = request.values.get('From', None)
-    call = client.calls.create(to_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback?num="+to_number)
+    call = client.calls.create(to_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml") #status_callback="http://fathomless-oasis-22928.herokuapp.com/transcribecallback?num="+to_number)
     return "Hello nikhil u boosted ape"
 
-@app.route("/callback", methods=['GET', 'POST'])
-def callback():
-    print(len(client.recordings.list()))
-        # Initialize Firebase Application and get user data
-    fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
-    data = fb.get('/users', None)
-    num = "+" + str(request.values.get("num"))[1:]
-    print(num)
+# @app.route("/callback", methods=['GET', 'POST'])
+# def callback():
+#     #print(len(client.recordings.list()))
+#         # Initialize Firebase Application and get user data
+#     fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
+#     data = fb.get('/users', None)
+#     num = "+" + str(request.values.get("num"))[1:]
+#     #print(num)
+#     rec2 = client.recordings.list()[0]
+#     finalTwilioURL = "api.twilio.com" + rec2.uri[:-4] + "mp3"
+#     #print(finalTwilioURL)
+#     date = datetime.datetime.now().strftime ("%m-%d-%Y")
+#     if num in data:
+#         data[num][date] = finalTwilioURL  
+#     else:
+#         data[num] = {date:finalTwilioURL}
 
-    rec2 = client.recordings.list()[0]
-    finalTwilioURL = "api.twilio.com" + rec2.uri[:-4] + "mp3"
-    print(finalTwilioURL)
-    date = datetime.datetime.now().strftime ("%m-%d-%Y")
-    if num in data:
-        data[num][date] = finalTwilioURL
-      
-    else:
-        data[num] = {date:finalTwilioURL}
+#     result = fb.put('', '/users', data)
 
-    result = fb.put('', '/users', data)
-
-    return "callback func boiz"
+#     return "callback func boiz"
 
 @app.route("/transcribecallback", methods=['GET','POST'])
 def transcribecallback():
     fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
     data = fb.get('/users', None)
+    rec2 = client.recordings.list()[0]
+    finalTwilioURL = "api.twilio.com" + rec2.uri[:-4] + "mp3"
+
     text = str(request.values.get("TranscriptionText"))
     date = datetime.datetime.now().strftime("%m-%d-%Y")
     sent = TextBlob(text).sentiment.polarity
@@ -54,12 +55,13 @@ def transcribecallback():
     print(num)
     if num in data:
         data[num][date]["sent"] = sent
+        data[num][date]["url"] = finalTwilioURL
     else:
-        data[num][date] = {"sent":sent}
+        data[num][date] = {"sent":sent, "url": finalTwilioURL}
 
     result = fb.put('', '/users', data)
 
-    return "transcribe callback boiz"
+    return "callback boiz"
 
 @app.route("/call.xml", methods=['GET', 'POST'])
 def static_from_root():
