@@ -27,4 +27,4 @@ def runSentimentAnalysis(audiourl):
 	os.remove("tmp.mp3")
 	return TextBlob(txt).sentiment.polarity
 
-print(runSentimentAnalysis("api.twilio.com/2010-04-01/Accounts/ACe7c0012d06fc3b85303d8387dffdf672/Recordings/REf18f17cc7638ce9aae10d95dee97bb8c.mp3"))
+#print(runSentimentAnalysis("api.twilio.com/2010-04-01/Accounts/ACe7c0012d06fc3b85303d8387dffdf672/Recordings/REf18f17cc7638ce9aae10d95dee97bb8c.mp3"))
