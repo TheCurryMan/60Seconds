@@ -50,14 +50,14 @@ def transcribecallback():
     date = datetime.datetime.now().strftime("%m-%d-%Y")
     sent = TextBlob(text).sentiment.polarity
     print(request.values)
-    num = str(request.values.get("To"))
-    print(num)
-    if num in data:
-        data[num][date]["sent"] = sent
-    else:
-        data[num][date] = {"sent":sent}
-    
-    result = fb.put('', '/users', data)
+    # num = str(request.values.get("To"))
+    # print(num)
+    # if num in data:
+    #     data[num][date]["sent"] = sent
+    # else:
+    #     data[num][date] = {"sent":sent}
+    #
+    # result = fb.put('', '/users', data)
 
     return "transcribe callback boiz"
 

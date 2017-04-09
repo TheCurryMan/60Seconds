@@ -3,5 +3,5 @@
     <style type="text/css" id="night-mode-pro-style" />
     <link type="text/css" rel="stylesheet" id="night-mode-pro-link" />
     <Say voice="woman">At the tone, record today's journal entry.</Say>
-    <Record playBeep="true" transcribe="true" transcribeCallback = "http://fathomless-oasis-22928.herokuapp.com/transcribecallback"/>
+    <Record playBeep="true" transcribe="true" timeout="10" transcribeCallback = "http://fathomless-oasis-22928.herokuapp.com/transcribecallback"/>
 </Response>
