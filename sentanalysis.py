@@ -15,4 +15,6 @@ def runSentimentAnalysis(audiourl):
 		audio = r.listen(source)
 	txt = r.recognize_google(audio)
 	os.remove("tmp.wav")
+	os.remove("tmp.mp3")
 	return TextBlob(txt).sentiment.polarity
+
