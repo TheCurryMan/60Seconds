@@ -14,7 +14,7 @@ recordinguris = []
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="https://demo.twilio.com/docs/voice.xml")
+    call = client.calls.create("+16507136689", "+14692086476", url="https://demo.twilio.com/docs/voice.xml", record=True)
 
     print(len(client.recordings.list()))
     return "Hello nikhil u boosted ape"
