@@ -14,12 +14,8 @@ recordinguris = []
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="http://demo.twilio.com/docs/voice.xml", status_callback="https://fathomless-oasis-22928.herokuapp.com/callback", record=True)
-    #if calendar.monthrange(datetime.datetime.now().year,datetime.datetime.now().month)[1] == datetime.datetime.now().day:
-    #for recording in client.recordings.list():
-     #   print(recording)
-     #   recordinguris.append(recording.uri)
-    #print(recordinguris)
+    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="call.xml", status_callback="https://fathomless-oasis-22928.herokuapp.com/callback", record=True)
+
     print(len(client.recordings.list()))
     return "Hello nikhil u boosted ape"
 
