@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, send_from_directory
 from twilio.rest import Client
-import calendar
+from firebase import firebase
 import datetime
 
 
@@ -9,12 +9,16 @@ app = Flask(__name__, static_folder='static')
 account_sid = "ACe7c0012d06fc3b85303d8387dffdf672"
 auth_token = "a3d0ce1a83f3d9ac352c26a95c46f96e"
 client = Client(account_sid, auth_token)
-recordinguris = []
+fromNumber = ""
 
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.calls.create("+16507136689", "+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback", record=True)
+
+    from_number = request.values.get('From', None)
+    fromNumber = from_number
+
+    call = client.calls.create(from_number, "+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback", record=True)
 
 
     return "Hello nikhil u boosted ape"
@@ -22,10 +26,20 @@ def sms_reply():
 @app.route("/callback", methods=['GET', 'POST'])
 def callback():
     print(len(client.recordings.list()))
+        # Initialize Firebase Application and get user data
+    fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
+    data = fb.get('/users', None)
+
 
     rec2 = client.recordings.list()[0]
-    rec4 = "www.twilio.api.com/" + rec2.uri[:-4] + "mp3"
-    print(rec4)
+    finalTwilioURL = "www.api.twilio.com" + rec2.uri[:-4] + "mp3"
+    print(finalTwilioURL)
+
+
+    date = datetime.datetime.now().strftime ("%m-%d-%Y")
+    data[fromNumber][date] = finalTwilioURL
+
+    result = fb.put('', '/users', data)
 
     return "callback func boiz"
 
