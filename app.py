@@ -16,7 +16,12 @@ def sms_reply():
     """Respond to incoming calls with a simple text message."""
 
     to_number = request.values.get('From', None)
-    call = client.calls.create(to_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml") #status_callback="http://fathomless-oasis-22928.herokuapp.com/transcribecallback?num="+to_number)
+
+    fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
+    data = fb.get('/users', None)
+
+    if to_number not in data:
+        call = client.calls.create(to_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml") #status_callback="http://fathomless-oasis-22928.herokuapp.com/transcribecallback?num="+to_number)
     return "Hello nikhil u boosted ape"
 
 # @app.route("/callback", methods=['GET', 'POST'])
@@ -60,9 +65,6 @@ def transcribecallback():
         data[str(num)] = {str(date): {"sent":str(sent), "url": str(finalTwilioURL)}}
 
     result = fb.put('', '/users', data)
-
-    os.system("heroku ps:scale web=0")
-    os.system("heroku ps:scale web=1")
 
     return "callback boiz"
 
