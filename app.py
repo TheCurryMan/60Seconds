@@ -14,7 +14,7 @@ recordinguris = []
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.calls.create("+16507136689", "+14692086476", url="http://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback", record=True)
+    call = client.calls.create("+16507136689", "+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback", record=True)
 
     print(len(client.recordings.list()))
     return "Hello nikhil u boosted ape"
@@ -24,7 +24,7 @@ def callback():
     print(len(client.recordings.list()))
     return "callback func boiz"
 
-@app.route("/call.xml")
+@app.route("/call.xml", methods=['GET', 'POST'])
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
