@@ -51,7 +51,7 @@ def transcribecallback():
     date = datetime.datetime.now().strftime("%m-%d-%Y")
     sent = TextBlob(text).sentiment.polarity
     print(sent)
-    num = str(request.values.get("To")) + "cancer"
+    num = str(request.values.get("To"))
     if num in data:
         data[str(num)][str(date)]["sent"] = str(sent)
         data[str(num)][str(date)]["url"] = str(finalTwilioURL)
