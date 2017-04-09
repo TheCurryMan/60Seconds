@@ -3,7 +3,7 @@ from twilio.rest import Client
 from firebase import firebase
 import datetime
 from textblob import TextBlob
-
+import os
 
 app = Flask(__name__, static_folder='static')
 # Try adding your own number to this list!
@@ -14,7 +14,6 @@ client = Client(account_sid, auth_token)
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-
     to_number = request.values.get('From', None)
     call = client.calls.create(to_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml") #status_callback="http://fathomless-oasis-22928.herokuapp.com/transcribecallback?num="+to_number)
     return "Server for 60Seconds"
@@ -50,14 +49,12 @@ def transcribecallback():
     text = str(request.values.get("TranscriptionText"))
     date = datetime.datetime.now().strftime("%m-%d-%Y")
     sent = TextBlob(text).sentiment.polarity
-    print(request.values)
     num = str(request.values.get("To"))
-    print(num)
     if num in data:
-        data[num][date]["sent"] = sent
-        data[num][date]["url"] = finalTwilioURL
+        data[str(num)][str(date)]["sent"] = str(sent)
+        data[str(num)][str(date)]["url"] = str(finalTwilioURL)
     else:
-        data[num][date] = {"sent":sent, "url": finalTwilioURL}
+        data[str(num)] = {str(date): {"sent":str(sent), "url": str(finalTwilioURL)}}
 
     result = fb.put('', '/users', data)
 
