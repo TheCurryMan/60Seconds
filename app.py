@@ -50,7 +50,7 @@ def transcribecallback():
     date = datetime.datetime.now().strftime("%m-%d-%Y")
     sent = TextBlob(text).sentiment.polarity
     print(request.values)
-    num = request.values.get("to")
+    num = request.values.get("To")
     print(num)
     if num in data:
         data[num][date]["sent"] = sent
