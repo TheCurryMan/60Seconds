@@ -7,16 +7,16 @@ from sentanalysis import runSentimentAnalysis
 
 app = Flask(__name__, static_folder='static')
 # Try adding your own number to this list!
-account_sid = "ACe7c0012d06fc3b85303d8387dffdf672"
-auth_token = "a3d0ce1a83f3d9ac352c26a95c46f96e"
+account_sid = "ACa9eca256e7d2b82539a0c6086dc244d7"
+auth_token = "213a8dd83633246a86c5b36361665220"
 client = Client(account_sid, auth_token)
 
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
 
-    from_number = request.values.get('From', None)
-    call = client.calls.create(from_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback?num="+from_number)
+    to_number = request.values.get('From', None)
+    call = client.calls.create(to_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback?num="+from_number)
     return "Hello nikhil u boosted ape"
 
 @app.route("/callback", methods=['GET', 'POST'])
