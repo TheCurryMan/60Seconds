@@ -16,20 +16,16 @@ def sms_reply():
     """Respond to incoming calls with a simple text message."""
     call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="http://demo.twilio.com/docs/voice.xml", status_callback="https://fathomless-oasis-22928.herokuapp.com/callback")
     #if calendar.monthrange(datetime.datetime.now().year,datetime.datetime.now().month)[1] == datetime.datetime.now().day:
-    for recording in client.recordings.list():
-        print(recording)
-        recordinguris.append(recording.uri)
-    print(recordinguris)
+    #for recording in client.recordings.list():
+     #   print(recording)
+     #   recordinguris.append(recording.uri)
+    #print(recordinguris)
+    print(len(client.recordings.list()))
     return "Hello nikhil u boosted ape"
 
 @app.route("/callback", methods=['GET', 'POST'])
 def callback():
-    print("CALLBACK IS BEING CALLED")
-
-    for recording in client.recordings.list():
-        print(recording)
-        recordinguris.append(recording.uri)
-    print(recordinguris)
+    print(len(client.recordings.list()))
     return "callback func boiz"
 
 
