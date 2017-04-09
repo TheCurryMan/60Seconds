@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <style type="text/css" id="night-mode-pro-style" />
-    <link type="text/css" rel="stylesheet" id="night-mode-pro-link" />
     <Say voice="woman">At the tone, re-cord today's journal entry.</Say>
-    <Record playBeep="true" timeout="10" transcribeCallback = "https://fathomless-oasis-22928.herokuapp.com/transcribecallback" />
+    <Record playBeep="true" transcribe="true" timeout="10" transcribeCallback = "https://fathomless-oasis-22928.herokuapp.com/transcribecallback" />
 </Response>

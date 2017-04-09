@@ -17,7 +17,7 @@ def sms_reply():
 
     to_number = request.values.get('From', None)
     call = client.calls.create(to_number, "+15107688341", url="https://fathomless-oasis-22928.herokuapp.com/call.xml") #status_callback="http://fathomless-oasis-22928.herokuapp.com/transcribecallback?num="+to_number)
-    return "Hello nikhil u boosted ape"
+    return "Server for 60Seconds"
 
 # @app.route("/callback", methods=['GET', 'POST'])
 # def callback():
@@ -61,7 +61,7 @@ def transcribecallback():
 
     result = fb.put('', '/users', data)
 
-    return "callback boiz"
+    return "Callback function"
 
 @app.route("/call.xml", methods=['GET', 'POST'])
 def static_from_root():
