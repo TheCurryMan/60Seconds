@@ -3,7 +3,7 @@ from twilio.rest import Client
 from firebase import firebase
 import datetime
 from textblob import TextBlob
-
+import os
 
 app = Flask(__name__, static_folder='static')
 # Try adding your own number to this list!
@@ -60,6 +60,9 @@ def transcribecallback():
         data[str(num)] = {str(date): {"sent":str(sent), "url": str(finalTwilioURL)}}
 
     result = fb.put('', '/users', data)
+
+    os.system("heroku ps:scale web=0")
+    os.system("heroku ps:scale web=1")
 
     return "callback boiz"
 
