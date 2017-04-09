@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say voice="alice">Thanks for trying our documentation. Enjoy!</Say>
-    <Play>http://demo.twilio.com/docs/classic.mp3</Play>
+    <style type="text/css" id="night-mode-pro-style" />
+    <link type="text/css" rel="stylesheet" id="night-mode-pro-link" />
+    <Say voice="woman">At the tone, record today's journal entry.</Say>
+    <Record playBeep="True" />
 </Response>
