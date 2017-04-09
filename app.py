@@ -47,8 +47,10 @@ def transcribecallback():
     finalTwilioURL = "api.twilio.com" + rec2.uri[:-4] + "mp3"
 
     text = str(request.values.get("TranscriptionText"))
+    print(text)
     date = datetime.datetime.now().strftime("%m-%d-%Y")
     sent = TextBlob(text).sentiment.polarity
+    print(sent)
     num = str(request.values.get("To")) + "cancer"
     if num in data:
         data[str(num)][str(date)]["sent"] = str(sent)
