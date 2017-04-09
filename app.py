@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, send_from_directory
 from twilio.rest import Client
 import calendar
 import datetime
@@ -14,7 +14,7 @@ recordinguris = []
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="https://drive.google.com/uc?export=download&id=0B313RDDNBjkvOGdTQWlDTWFaMlE", status_callback="https://fathomless-oasis-22928.herokuapp.com/callback", record=True)
+    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="https://fathomless-oasis-22928.herokuapp.com/callback", record=True)
 
     print(len(client.recordings.list()))
     return "Hello nikhil u boosted ape"
@@ -24,7 +24,9 @@ def callback():
     print(len(client.recordings.list()))
     return "callback func boiz"
 
-@app.route("/call.xml", )
+@app.route("/call.xml")
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 
 if __name__ == "__main__":
