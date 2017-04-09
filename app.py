@@ -4,7 +4,7 @@ import calendar
 import datetime
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 # Try adding your own number to this list!
 account_sid = "ACe7c0012d06fc3b85303d8387dffdf672"
 auth_token = "a3d0ce1a83f3d9ac352c26a95c46f96e"
