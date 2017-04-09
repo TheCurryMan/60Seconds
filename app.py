@@ -15,8 +15,6 @@ def sms_reply():
     """Respond to incoming calls with a simple text message."""
 
     from_number = request.values.get('From', None)
-    fromNumber = from_number
-
     call = client.calls.create(from_number, "+14692086476", url="https://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback?num="+from_number, record=True)
 
 
@@ -29,14 +27,23 @@ def callback():
     fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
     data = fb.get('/users', None)
 
+    num = str(request.values.get("num"))
+
+
+    print(num)
 
     rec2 = client.recordings.list()[0]
     finalTwilioURL = "www.api.twilio.com" + rec2.uri[:-4] + "mp3"
     print(finalTwilioURL)
-
-
     date = datetime.datetime.now().strftime ("%m-%d-%Y")
-    data[str(request.values.get("num"))][date] = finalTwilioURL
+    if num in data:
+        data[num][date] = finalTwilioURL
+    else:
+        data[num] = {date:finalTwilioURL}
+
+
+
+
 
     result = fb.put('', '/users', data)
 
