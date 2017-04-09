@@ -14,13 +14,24 @@ recordinguris = []
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="https://raw.githubusercontent.com/TheCurryMan/60Seconds/master/call.xml")
+    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="http://demo.twilio.com/docs/voice.xml", status_callback="\callback")
     #if calendar.monthrange(datetime.datetime.now().year,datetime.datetime.now().month)[1] == datetime.datetime.now().day:
     for recording in client.recordings.list():
         print(recording)
         recordinguris.append(recording.uri)
     print(recordinguris)
     return "Hello nikhil u boosted ape"
+
+@app.route("/callback", methods=['GET', 'POST'])
+def callback():
+    print("CALLBACK IS BEING CALLED")
+
+    for recording in client.recordings.list():
+        print(recording)
+        recordinguris.append(recording.uri)
+    print(recordinguris)
+    return "Hello nikhil u boosted ape"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
