@@ -14,7 +14,7 @@ recordinguris = []
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.calls.create("+16507136689", "+14692086476", url="http://demo.twilio.com/docs/voice.xml", record=True)
+    call = client.calls.create("+16507136689", "+14692086476", url="http://fathomless-oasis-22928.herokuapp.com/call.xml", status_callback="http://fathomless-oasis-22928.herokuapp.com/callback", record=True)
 
     print(len(client.recordings.list()))
     return "Hello nikhil u boosted ape"
