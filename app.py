@@ -46,11 +46,11 @@ def callback():
 def transcribecallback():
     fb = firebase.FirebaseApplication("https://seconds-8d329.firebaseio.com/", None)
     data = fb.get('/users', None)
-    text = request.values.get("TranscriptionText")
+    text = str(request.values.get("TranscriptionText"))
     date = datetime.datetime.now().strftime("%m-%d-%Y")
     sent = TextBlob(text).sentiment.polarity
     print(request.values)
-    num = request.values.get("To")
+    num = str(request.values.get("To"))
     print(num)
     if num in data:
         data[num][date]["sent"] = sent
