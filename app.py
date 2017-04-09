@@ -14,7 +14,7 @@ recordinguris = []
 @app.route("/", methods=['GET', 'POST'])
 def sms_reply():
     """Respond to incoming calls with a simple text message."""
-    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="call.xml", status_callback="https://fathomless-oasis-22928.herokuapp.com/callback", record=True)
+    call = client.api.account.calls.create(to="+16507136689", from_="+14692086476", url="https://raw.githubusercontent.com/TheCurryMan/60Seconds/master/call.xml", status_callback="https://fathomless-oasis-22928.herokuapp.com/callback", record=True)
 
     print(len(client.recordings.list()))
     return "Hello nikhil u boosted ape"
