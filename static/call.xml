@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
     <Say voice="woman">At the tone, re-cord today's journal entry.</Say>
-    <Record playBeep="true" transcribe="true" timeout="10" action="https://fathomless-oasis-22928.herokuapp.com/transcribecallback" />
+    <Record playBeep="true" transcribe="true" timeout="10" transcribeCallback="https://fathomless-oasis-22928.herokuapp.com/transcribecallback" />
     <Hangup/>
 </Response>
