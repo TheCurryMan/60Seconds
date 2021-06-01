@@ -5,7 +5,7 @@ gunicorn==19.6.0
 stemming==1.0.1
 python-firebase==1.2
 translation==1.0.5
-urllib3==1.20
+urllib3==1.26.5
 speechrecognition==3.6.3
 textblob==0.12.0
 pydub==0.18.0
